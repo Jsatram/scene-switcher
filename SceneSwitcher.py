@@ -284,7 +284,8 @@ week_menu.set(weeks[-1])
 
 day_label = tk.Label(tab1, text="Match Day")
 # Create the drop-down menu
-day_menu = AutocompleteCombobox(tab1, days)
+day_menu = AutocompleteCombobox(tab1)
+day_menu.config(values=days)
 day_menu.set(days[-1])
 
 game1_label = tk.Label(tab1, text="Game 1")
@@ -442,19 +443,19 @@ mapset_game2_map5.set(maps[-1])
 gamemodes_label = tk.Label(tab2, text="Gamemodes")
 
 gamemode_map1 = AutocompleteCombobox(tab2, gamemodes)
-gamemode_map1.set(gamemodes[0])
+gamemode_map1.set(gamemodes[3])
 
 gamemode_map2 = AutocompleteCombobox(tab2, gamemodes)
-gamemode_map2.set(gamemodes[0])
+gamemode_map2.set(gamemodes[6])
 
 gamemode_map3 = AutocompleteCombobox(tab2, gamemodes)
 gamemode_map3.set(gamemodes[0])
 
 gamemode_map4 = AutocompleteCombobox(tab2, gamemodes)
-gamemode_map4.set(gamemodes[0])
+gamemode_map4.set(gamemodes[3])
 
 gamemode_map5 = AutocompleteCombobox(tab2, gamemodes)
-gamemode_map5.set(gamemodes[0])
+gamemode_map5.set(gamemodes[6])
 
 
 
@@ -516,12 +517,6 @@ score_game1_label = tk.Label(tab3, text="Game 1")
 
 score_game2_label = tk.Label(tab3, text="Game 2")
 
-score_game1_team1_label = tk.Label(tab3, text="Team 1")
-score_game1_team2_label = tk.Label(tab3, text="Team 2")
-
-score_game2_team1_label = tk.Label(tab3, text="Team 1")
-score_game2_team2_label = tk.Label(tab3, text="Team 2")
-
 score_game1_maplabel1 = tk.Label(tab3, text="Map 1")
 score_game1_maplabel2 = tk.Label(tab3, text="Map 2")
 score_game1_maplabel3 = tk.Label(tab3, text="Map 3")
@@ -534,11 +529,15 @@ score_game2_maplabel3 = tk.Label(tab3, text="Map 3")
 score_game2_maplabel4 = tk.Label(tab3, text="Map 4")
 score_game2_maplabel5 = tk.Label(tab3, text="Map 5")
 
+
+
 score_game1_map1_t1 = tk.Entry(tab3)
+score_game1_map1_t1.insert(0, "0")
 score_game1_map1_t2 = tk.Entry(tab3)
+score_game1_map1_t2.insert(0, "0")
 score_game1_map1_winner = AutocompleteCombobox(tab3, game1_team_list)
 score_game1_map1_winner.set(teams[-1])
-
+checkbox_game1_map1_t1 = tk.Checkbutton(tab3, command=lambda: checkbox_winner(1,1,score_game1_map1_t1))
 
 score_game1_map2_t1 = tk.Entry(tab3)
 score_game1_map2_t1.insert(0, "0")
@@ -546,6 +545,7 @@ score_game1_map2_t2 = tk.Entry(tab3)
 score_game1_map2_t2.insert(0, "0")
 score_game1_map2_winner = AutocompleteCombobox(tab3, game1_team_list)
 score_game1_map2_winner.set(teams[-1])
+checkbox_game1_map2_t1 = tk.Checkbutton(tab3, command=lambda: checkbox_winner(1,2,score_game1_map2_t1))
 
 score_game1_map3_t1 = tk.Entry(tab3)
 score_game1_map3_t1.insert(0, "0")
@@ -553,6 +553,7 @@ score_game1_map3_t2 = tk.Entry(tab3)
 score_game1_map3_t2.insert(0, "0")
 score_game1_map3_winner = AutocompleteCombobox(tab3, game1_team_list)
 score_game1_map3_winner.set(teams[-1])
+checkbox_game1_map3_t1 = tk.Checkbutton(tab3, command=lambda: checkbox_winner(1,3,score_game1_map3_t1))
 
 score_game1_map4_t1 = tk.Entry(tab3)
 score_game1_map4_t1.insert(0, "0")
@@ -560,6 +561,7 @@ score_game1_map4_t2 = tk.Entry(tab3)
 score_game1_map4_t2.insert(0, "0")
 score_game1_map4_winner = AutocompleteCombobox(tab3, game1_team_list)
 score_game1_map4_winner.set(teams[-1])
+checkbox_game1_map4_t1 = tk.Checkbutton(tab3, command=lambda: checkbox_winner(1,4,score_game1_map4_t1))
 
 score_game1_map5_t1 = tk.Entry(tab3)
 score_game1_map5_t1.insert(0, "0")
@@ -567,15 +569,16 @@ score_game1_map5_t2 = tk.Entry(tab3)
 score_game1_map5_t2.insert(0, "0")
 score_game1_map5_winner = AutocompleteCombobox(tab3, game1_team_list)
 score_game1_map5_winner.set(teams[-1])
+checkbox_game1_map5_t1 = tk.Checkbutton(tab3, command=lambda: checkbox_winner(1,5,score_game1_map5_t1))
 
 #=============================================================
-
 score_game2_map1_t1 = tk.Entry(tab3)
 score_game2_map1_t1.insert(0, "0")
 score_game2_map1_t2 = tk.Entry(tab3)
 score_game2_map1_t2.insert(0, "0")
 score_game2_map1_winner = AutocompleteCombobox(tab3, game2_team_list)
 score_game2_map1_winner.set(teams[-1])
+checkbox_game2_map1_t1 = tk.Checkbutton(tab3, command=lambda: checkbox_winner(2,1,score_game2_map1_t1))
 
 score_game2_map2_t1 = tk.Entry(tab3)
 score_game2_map2_t1.insert(0, "0")
@@ -583,6 +586,7 @@ score_game2_map2_t2 = tk.Entry(tab3)
 score_game2_map2_t2.insert(0, "0")
 score_game2_map2_winner = AutocompleteCombobox(tab3, game2_team_list)
 score_game2_map2_winner.set(teams[-1])
+checkbox_game2_map2_t1 = tk.Checkbutton(tab3, command=lambda: checkbox_winner(2,2,score_game2_map2_t1))
 
 score_game2_map3_t1 = tk.Entry(tab3)
 score_game2_map3_t1.insert(0, "0")
@@ -590,6 +594,7 @@ score_game2_map3_t2 = tk.Entry(tab3)
 score_game2_map3_t2.insert(0, "0")
 score_game2_map3_winner = AutocompleteCombobox(tab3, game2_team_list)
 score_game2_map3_winner.set(teams[-1])
+checkbox_game2_map3_t1 = tk.Checkbutton(tab3, command=lambda: checkbox_winner(2,3,score_game2_map3_t1))
 
 score_game2_map4_t1 = tk.Entry(tab3)
 score_game2_map4_t1.insert(0, "0")
@@ -597,6 +602,7 @@ score_game2_map4_t2 = tk.Entry(tab3)
 score_game2_map4_t2.insert(0, "0")
 score_game2_map4_winner = AutocompleteCombobox(tab3, game2_team_list)
 score_game2_map4_winner.set(teams[-1])
+checkbox_game2_map4_t1 = tk.Checkbutton(tab3, command=lambda: checkbox_winner(2,4,score_game2_map4_t1))
 
 score_game2_map5_t1 = tk.Entry(tab3)
 score_game2_map5_t1.insert(0, "0")
@@ -604,8 +610,31 @@ score_game2_map5_t2 = tk.Entry(tab3)
 score_game2_map5_t2.insert(0, "0")
 score_game2_map5_winner = AutocompleteCombobox(tab3, game2_team_list)
 score_game2_map5_winner.set(teams[-1])
-
+checkbox_game2_map5_t1 = tk.Checkbutton(tab3, command=lambda: checkbox_winner(2,5,score_game2_map5_t1))
 #=============================================================
+
+def checkbox_winner(game, map_num, widget):
+    if map_num == 1:
+        if game == 1 or game == 2:
+            widget.delete(0, tk.END)
+            widget.insert(0, "250")
+    elif map_num == 2:
+        if game == 1 or game == 2:
+            widget.delete(0, tk.END)
+            widget.insert(0, "6")
+    elif map_num == 3:
+        if game == 1 or game == 2:
+            widget.delete(0, tk.END)
+            widget.insert(0, "3")
+    elif map_num == 4:
+        if game == 1 or game == 2:
+            widget.delete(0, tk.END)
+            widget.insert(0, "250")
+    else:
+        if game == 1 or game == 2:
+            widget.delete(0, tk.END)
+            widget.insert(0, "6")
+
 
 def update_winner_options():
     game1_team_list = []
@@ -644,55 +673,61 @@ score_submit_button = tk.Button(tab3, text="Submit", command=lambda: score_tab_s
                                                                                     [score_game2_map1_winner.get(), score_game2_map2_winner.get(), score_game2_map3_winner.get(), score_game2_map4_winner.get(), score_game2_map5_winner.get()]))
 
 
-score_game1_label.grid(row=0,column=0)
-score_game1_team1_label.grid(row=1,column=1)
-score_game1_team2_label.grid(row=1,column=2)
+score_game1_label.grid(row=1,column=0)
 
+checkbox_game1_map1_t1.grid(row=2,column=0)
 score_game1_map1_t1.grid(row=2, column=1)
 score_game1_map1_t2.grid(row=2, column=2)
-score_game1_map1_winner.grid(row=2, column=3)
+score_game1_map1_winner.grid(row=2, column=4)
 
+checkbox_game1_map2_t1.grid(row=3,column=0)
 score_game1_map2_t1.grid(row=3, column=1)
 score_game1_map2_t2.grid(row=3, column=2)
-score_game1_map2_winner.grid(row=3, column=3)
+score_game1_map2_winner.grid(row=3, column=4)
 
+checkbox_game1_map3_t1.grid(row=4,column=0)
 score_game1_map3_t1.grid(row=4, column=1)
 score_game1_map3_t2.grid(row=4, column=2)
-score_game1_map3_winner.grid(row=4, column=3)
+score_game1_map3_winner.grid(row=4, column=4)
 
+checkbox_game1_map4_t1.grid(row=5,column=0)
 score_game1_map4_t1.grid(row=5, column=1)
 score_game1_map4_t2.grid(row=5, column=2)
-score_game1_map4_winner.grid(row=5, column=3)
+score_game1_map4_winner.grid(row=5, column=4)
 
+checkbox_game1_map5_t1.grid(row=6,column=0)
 score_game1_map5_t1.grid(row=6, column=1)
 score_game1_map5_t2.grid(row=6, column=2)
-score_game1_map5_winner.grid(row=6, column=3)
+score_game1_map5_winner.grid(row=6, column=4)
 
 score_game2_label.grid(row=7,column=0)
-score_game2_team1_label.grid(row=8,column=1)
-score_game2_team2_label.grid(row=8,column=2)
 
-score_game2_map1_t1.grid(row=9, column=1)
-score_game2_map1_t2.grid(row=9, column=2)
-score_game2_map1_winner.grid(row=9, column=3)
+checkbox_game2_map1_t1.grid(row=10,column=0)
+score_game2_map1_t1.grid(row=10, column=1)
+score_game2_map1_t2.grid(row=10, column=2)
+score_game2_map1_winner.grid(row=10, column=4)
 
-score_game2_map2_t1.grid(row=10, column=1)
-score_game2_map2_t2.grid(row=10, column=2)
-score_game2_map2_winner.grid(row=10, column=3)
+checkbox_game2_map2_t1.grid(row=11,column=0)
+score_game2_map2_t1.grid(row=11, column=1)
+score_game2_map2_t2.grid(row=11, column=2)
+score_game2_map2_winner.grid(row=11, column=4)
 
-score_game2_map3_t1.grid(row=11, column=1)
-score_game2_map3_t2.grid(row=11, column=2)
-score_game2_map3_winner.grid(row=11, column=3)
+checkbox_game2_map3_t1.grid(row=12,column=0)
+score_game2_map3_t1.grid(row=12, column=1)
+score_game2_map3_t2.grid(row=12, column=2)
+score_game2_map3_winner.grid(row=12, column=4)
 
-score_game2_map4_t1.grid(row=12, column=1)
-score_game2_map4_t2.grid(row=12, column=2)
-score_game2_map4_winner.grid(row=12, column=3)
+checkbox_game2_map4_t1.grid(row=13,column=0)
+score_game2_map4_t1.grid(row=13, column=1)
+score_game2_map4_t2.grid(row=13, column=2)
+score_game2_map4_winner.grid(row=13, column=4)
 
-score_game2_map5_t1.grid(row=13, column=1)
-score_game2_map5_t2.grid(row=13, column=2)
-score_game2_map5_winner.grid(row=13, column=3)
+checkbox_game2_map5_t1.grid(row=14,column=0)
+score_game2_map5_t1.grid(row=14, column=1)
+score_game2_map5_t2.grid(row=14, column=2)
+score_game2_map5_winner.grid(row=14, column=4)
 
-score_submit_button.grid(row=14,column=0)
+score_submit_button.grid(row=15,column=0)
 
 notebook.add(tab3, text="Score Report")
 
