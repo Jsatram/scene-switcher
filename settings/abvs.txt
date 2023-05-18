@@ -1,0 +1,30 @@
+Atlanta Dazed, ATL Dazed
+Boston Burgers,	BOS Burgers
+Chicago Hunted,	CHI Hunted
+Cleveland Misfires,	CLE Misfires
+Dallas Flat Tires, DAL Flat Tires
+DC Minutemen, DC Minutemen
+Denver Surrender, DEN Surrender
+Florida Puppeteers, FLA Puppeteers
+Green Bay Goats, GB Goats
+Houston Warthogs, HOU Warthogs
+LA Dweebs, LA Dweebs
+LAG, LAG
+London Royale w Cheese,	LDN Royale w Cheese
+Manitoba Mallards, MB Mallards
+Maui Chums,	MAU Chums
+Maui Chums Gold, MAU Chums
+Minnesota Floppr, MIN Floppr
+New York Lightning,	NY Lightning
+New York SubPar, NY SubPar
+Old Guy Chicago, Old Guys Chicago
+Paris LetDowns,	PAR LetDowns
+Paris Renegades, PAR Renegades
+Philly Fighters, PHI Fighters
+Sasky Shotgunners, SASK Shotgunners
+Seattle Sloths, SEA Sloths
+Sin City Slayers, SIN Slayers
+Sydney Dingoes,	SYD Dingoes
+Toronto Falters, TOR Falters
+Vancouver Comets, VAN Comets
+TBD, TBD

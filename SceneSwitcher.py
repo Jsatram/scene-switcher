@@ -6,8 +6,10 @@ import os
 
 teams = None
 divisions = None
+abvs = {}
 maps = None
 gamemodes = None
+GAMENAME = None
 
 game1 = {"Team 1": "", "Team 2": ""}
 game2 = {"Team 1": "", "Team 2": ""}
@@ -28,12 +30,28 @@ with open('settings\divisions.txt', 'r') as f:
     # Read the contents of the file into a list
     divisions = f.readlines()
 
+with open('settings\\abvs.txt', 'r') as file:
+    lines = file.readlines()
+    for line in lines:
+        line = line.strip()
+        if line:
+            key, value = line.split(',')
+            key = key.strip()
+            value = value.strip()
+            abvs[key] = value
+
+with open('settings\game.txt', 'r') as file:
+    GAMENAME = file.readline().rstrip('\n')
+
+
+
 gamemodes = [gamemode.rstrip('\n') for gamemode in gamemodes]
 maps = [map.rstrip('\n') for map in maps]
 teams = [team.rstrip('\n') for team in teams]
 divisions = [division.rstrip('\n') for division in divisions]
-weeks = ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Playoffs", "Chumps", "TBD"]
+weeks = ["W1", "W2", "W3", "W4", "W5", "W6", "W7", "Playoffs", "Chumps", "TBD"]
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "TBD"]
+seasons = ["Summer","Fall","Winter","Spring", "TBD"]
 
 directory = "C:\Dropbox\Teams\CRL\Alpha\Scene Switcher Directory"
 
@@ -147,7 +165,7 @@ def mapset_tab_submit(game1maps, game2maps, gamemodes):
             else:
                 pass
 
-def main_tab_button(week, day, g1t1_name, g1t1_score, g1t2_name, g1t2_score, g1_division, g2t1_name, g2t1_score, g2t2_name, g2t2_score, g2_division, l_caster, r_caster):
+def main_tab_button(week, day, g1t1_name, g1t1_score, g1t2_name, g1t2_score, g1_division, g2t1_name, g2t1_score, g2t2_name, g2t2_score, g2_division, l_caster, r_caster, season):
     directory = "C:/Dropbox/Teams/CRL/Alpha/Scene Switcher Directory/"
     divisions = "C:/Dropbox/Teams/CRL/Alpha/Scene Switcher Directory/zz Assets zz/Assets/TimeDivs/"
     scores = "C:/Dropbox/Teams/CRL/Alpha/Scene Switcher Directory/zz Assets zz/Assets/Scores/"
@@ -255,6 +273,22 @@ def main_tab_button(week, day, g1t1_name, g1t1_score, g1t2_name, g1t2_score, g1_
                 dest_file_path = os.path.join(dest_path_div , file_name)
                 shutil.copy2(file_path, dest_file_path)
 
+    #sample title CRL Vanguard: Fall W0  ll MIN Floppr vs CHI Hunted (Gold) ll NY Lightning vs DC Minutemen (Diamond) | !league !discord
+    title = "CRL " + GAMENAME + ": " + season + " " + week + " ll " + abvs[g1t1_name] + " vs " + abvs[g1t2_name] + " (" + g1_division.split()[0] + ") ll " + abvs[g2t1_name] + " vs " + abvs[g2t2_name] + " (" + g2_division.split()[0] + ") | !league !discord"
+    title_text.delete(0, tk.END)  # Clear the content of the Entry widget
+    title_text.insert(tk.END, title)
+
+    #sample com !editcom !mc Minnesota Floppr 0-0 Chicago Hunted (Gold Premade South)
+    g1command = "!editcom !mc " + g1t1_name + " " + g1t1_score + "-" + g1t2_score + " " + g1t2_name + " (" + g1_division + ")"
+    g1mapCount_text.delete(0, tk.END)
+    g1mapCount_text.insert(tk.END, g1command)
+
+    #sample com !editcom !mc Minnesota Floppr 0-0 Chicago Hunted (Gold Premade South)
+    g2command = "!editcom !mc " + g2t1_name + " " + g2t1_score + "-" + g2t2_score + " " + g2t2_name + " (" + g2_division + ")"
+    g2mapCount_text.delete(0, tk.END)
+    g2mapCount_text.insert(tk.END, g2command)
+
+
 root = tk.Tk()
 
 root.config(bg="yellow")
@@ -276,7 +310,7 @@ notebook = ttk.Notebook(root, style="TabBG.TNotebook")
 # Create the first tab
 tab1 = ttk.Frame(notebook)
 
-week_label = tk.Label(tab1, text="Week:")
+week_label = tk.Label(tab1, text="Week")
 # Create the drop-down menu
 week_menu = AutocompleteCombobox(tab1, weeks)
 week_menu.set(weeks[-1])
@@ -287,6 +321,11 @@ day_label = tk.Label(tab1, text="Match Day")
 day_menu = AutocompleteCombobox(tab1)
 day_menu.config(values=days)
 day_menu.set(days[-1])
+
+season_label = tk.Label(tab1, text="Season")
+season_menu = AutocompleteCombobox(tab1)
+season_menu.config(values=seasons)
+season_menu.set(seasons[-1])
 
 game1_label = tk.Label(tab1, text="Game 1")
 
@@ -348,7 +387,14 @@ g2t2_label = tk.Label(tab1, text="Team 2")
 left_caster_label = tk.Label(tab1, text="Left Caster")
 right_caster_label = tk.Label(tab1, text="Right Caster")
 
-button = tk.Button(tab1, text="Submit", command=lambda: main_tab_button(week_menu.get(),day_menu.get(),g1t1_name_menu.get(),score_g1t1_menu.get(),g1t2_name_menu.get(),score_g1t2_menu.get(),game1_division_menu.get(),g2t1_name_menu.get(),score_g2t1_menu.get(),g2t2_name_menu.get(),score_g2t2_menu.get(),game2_division_menu.get(), left_caster_name.get(), right_caster_name.get()))
+title_label = tk.Label(tab1, text="Title:")
+title_text = tk.Entry(tab1)
+g1mapCount_label = tk.Label(tab1, text="Map Count Game 1:")
+g1mapCount_text = tk.Entry(tab1)
+g2mapCount_label = tk.Label(tab1, text="Map Count Game 2:")
+g2mapCount_text = tk.Entry(tab1)
+
+button = tk.Button(tab1, text="Submit", command=lambda: main_tab_button(week_menu.get(),day_menu.get(),g1t1_name_menu.get(),score_g1t1_menu.get(),g1t2_name_menu.get(),score_g1t2_menu.get(),game1_division_menu.get(),g2t1_name_menu.get(),score_g2t1_menu.get(),g2t2_name_menu.get(),score_g2t2_menu.get(),game2_division_menu.get(), left_caster_name.get(), right_caster_name.get(), season_menu.get()))
 
 week_label.grid(row=0, column=0)
 week_menu.grid(row=0, column=1)
@@ -356,38 +402,47 @@ week_menu.grid(row=0, column=1)
 day_label.grid(row=1, column=0)
 day_menu.grid(row=1, column=1)
 
-game1_label.grid(row=2, column=0)
+season_label.grid(row=2, column=0)
+season_menu.grid(row=2, column=1)
 
-game1_division_label.grid(row=3, column=1)
-game1_division_menu.grid(row=3, column=2)
+game1_label.grid(row=3, column=0)
 
-g1t1_label.grid(row=4, column=1)
-g1t1_name_menu.grid(row=4, column=2)
-score_g1t1_menu.grid(row=4, column=3) 
+game1_division_label.grid(row=4, column=1)
+game1_division_menu.grid(row=4, column=2)
 
-g1t2_label.grid(row=5, column=1)
-g1t2_name_menu.grid(row=5, column=2) 
-score_g1t2_menu.grid(row=5, column=3)
+g1t1_label.grid(row=5, column=1)
+g1t1_name_menu.grid(row=5, column=2)
+score_g1t1_menu.grid(row=5, column=3) 
+
+g1t2_label.grid(row=6, column=1)
+g1t2_name_menu.grid(row=6, column=2) 
+score_g1t2_menu.grid(row=6, column=3)
 
 
-game2_label.grid(row=6, column=0)
+game2_label.grid(row=7, column=0)
 
-game2_division_label.grid(row=7, column=1)
-game2_division_menu.grid(row=7, column=2)
+game2_division_label.grid(row=8, column=1)
+game2_division_menu.grid(row=8, column=2)
 
-g2t1_label.grid(row=8, column=1)
-g2t1_name_menu.grid(row=8, column=2)
-score_g2t1_menu.grid(row=8, column=3) 
+g2t1_label.grid(row=9, column=1)
+g2t1_name_menu.grid(row=9, column=2)
+score_g2t1_menu.grid(row=9, column=3) 
 
-g2t2_label.grid(row=9, column=1)
-g2t2_name_menu.grid(row=9, column=2) 
-score_g2t2_menu.grid(row=9, column=3) 
+g2t2_label.grid(row=10, column=1)
+g2t2_name_menu.grid(row=10, column=2) 
+score_g2t2_menu.grid(row=10, column=3) 
 
-left_caster_label.grid(row=10,column=0)
-left_caster_name.grid(row=10, column=1)
-right_caster_label.grid(row=10, column=2)
-right_caster_name.grid(row=10, column=3)
-button.grid(row=12, column= 0)
+left_caster_label.grid(row=11,column=0)
+left_caster_name.grid(row=11, column=1)
+right_caster_label.grid(row=11, column=2)
+right_caster_name.grid(row=11, column=3)
+title_label.grid(row=12, column=0)
+title_text.grid(row=13, column=0, sticky="ew", columnspan=4)
+g1mapCount_label.grid(row=14,column=0)
+g1mapCount_text.grid(row=15, column=0, sticky="ew", columnspan=4)
+g2mapCount_label.grid(row=16,column=0)
+g2mapCount_text.grid(row=17, column=0, sticky="ew", columnspan=4)
+button.grid(row=18, column= 0)
 
 notebook.add(tab1, text="Main")
 
